@@ -47,11 +47,19 @@ public class ExampleTest {
 
 
     @Test
-    public void chooseBoosTests() {
+    public void chooseBorrowBoosTests() {
         BibliotecaMenu bibliotecaMenu = new BibliotecaMenu();
         bibliotecaMenu.initMenu();
-        assertEquals(new Book("ctc0", "hunan", "math0"), bibliotecaMenu.chooseBook("math0"));
-        bibliotecaMenu.chooseBook("ctc100");
+        assertEquals(new Book("ctc0", "hunan", "math0"), bibliotecaMenu.chooseBorrowBook("math0"));
+        bibliotecaMenu.chooseBorrowBook("ctc100");
+        assertEquals(systemOut(), "the book is not exist, please check your input!!\r\n");
+    }
+
+    @Test
+    public void chooseReturnBookTests(){
+        BibliotecaMenu bibliotecaMenu = new BibliotecaMenu();
+        bibliotecaMenu.initMenu();
+        bibliotecaMenu.chooseReturnBook("math1");
         assertEquals(systemOut(), "the book is not exist, please check your input!!\r\n");
     }
 

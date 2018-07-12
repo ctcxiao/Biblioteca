@@ -10,33 +10,57 @@ public class BibliotecaApp {
 
     private void run() {
         int selection = 0;
+        BibliotecaMenu bibliotecaMenu = new BibliotecaMenu();
+        bibliotecaMenu.initMenu();
+
         while (selection != -1) {
             printMenu();
             selection = getSelection();
-            dealwithSelection(selection);
+            dealwithSelection(selection, bibliotecaMenu);
         }
     }
 
-    private void dealwithSelection(int selection) {
+    private void dealwithSelection(int selection, BibliotecaMenu bibliotecaMenu) {
         switch (selection) {
             case 1:
-                printBookList();
+                printBookList(bibliotecaMenu);
                 break;
             case 2:
-                System.out.println("please input the book name");
+                viewBookInfo(bibliotecaMenu);
                 break;
             case 3:
+                borrowBook(bibliotecaMenu);
                 break;
             case 4:
+                returnBook(bibliotecaMenu);
                 break;
             default:
                 break;
         }
     }
 
-    private void printBookList() {
-        BibliotecaMenu bibliotecaMenu = new BibliotecaMenu();
-        bibliotecaMenu.initMenu();
+    private void returnBook(BibliotecaMenu bibliotecaMenu) {
+        System.out.println("please input the book name:");
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+        bibliotecaMenu.returnBook(bibliotecaMenu.chooseReturnBook(name));
+    }
+
+    private void borrowBook(BibliotecaMenu bibliotecaMenu) {
+        System.out.println("please input the book name:");
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+        bibliotecaMenu.borrowBook(bibliotecaMenu.chooseBorrowBook(name));
+    }
+
+    private void viewBookInfo(BibliotecaMenu bibliotecaMenu) {
+        System.out.println("please input the book name:");
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+        System.out.println(bibliotecaMenu.showBookInfo(name, bibliotecaMenu.getNotBorrowedBookList()));
+    }
+
+    private void printBookList(BibliotecaMenu bibliotecaMenu) {
         for (Book book:bibliotecaMenu.getNotBorrowedBookList()) {
             System.out.println(book.getName());
         }
@@ -48,6 +72,7 @@ public class BibliotecaApp {
     }
 
     private void printMenu() {
+        System.out.println();
         System.out.println("welcome to BibliotecaApp!!");
         System.out.println("please choose your selection：");
         System.out.println("1.list books");

@@ -23,17 +23,28 @@ public class BibliotecaMenu {
         }
 
         System.out.println("the book is not exist, please check your input!!");
-        return new Book();
+        return null;
     }
 
-    public Book chooseBook(String name) {
+    public Book chooseBorrowBook(String name) {
         for (Book book: notBorrowedBookList) {
             if (book.getName().equals(name)){
                 return book;
             }
         }
         System.out.println("the book is not exist, please check your input!!");
-        return new Book();
+        return null;
+    }
+
+    public Book chooseReturnBook(String name){
+        for (Book book: borrowedBookList) {
+            if (book.getName().equals(name)){
+                return book;
+            }
+        }
+
+        System.out.println("the book is not exist, please check your input!!");
+        return null;
     }
 
     public void borrowBook(Book book) {
