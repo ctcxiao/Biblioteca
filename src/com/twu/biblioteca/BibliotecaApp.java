@@ -35,6 +35,7 @@ public class BibliotecaApp {
                 returnBook(bibliotecaMenu);
                 break;
             default:
+                System.out.println("please input a useful selection!!");
                 break;
         }
     }
