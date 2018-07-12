@@ -62,6 +62,7 @@ public class ExampleTest {
         bibliotecaMenu.borrowBook(new Book("ctc0", "hunan", "math0"));
         assertFalse(bibliotecaMenu.getNotBorrowedBookList().contains(new Book("ctc0", "hunan", "math0")));
         assertTrue(bibliotecaMenu.getBorrowedBookList().contains(new Book("ctc0", "hunan", "math0")));
+        assertEquals(systemOut(), "borrow book successfully!!\r\n");
     }
 
     @Test
@@ -71,6 +72,7 @@ public class ExampleTest {
         bibliotecaMenu.returnBook(new Book("ctc0", "hunan", "math0"));
         assertTrue(bibliotecaMenu.getNotBorrowedBookList().contains(new Book("ctc0", "hunan", "math0")));
         assertFalse(bibliotecaMenu.getBorrowedBookList().contains(new Book("ctc0", "hunan", "math0")));
+        assertEquals(systemOut(), "thanks for returning book!!\r\n");
     }
 
 }

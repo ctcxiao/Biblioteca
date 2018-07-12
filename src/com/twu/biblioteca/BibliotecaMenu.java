@@ -43,6 +43,7 @@ public class BibliotecaMenu {
 
         notBorrowedBookList.remove(book);
         borrowedBookList.add(book);
+        System.out.println("borrow book successfully!!");
     }
 
     public void returnBook(Book book) {
@@ -51,6 +52,7 @@ public class BibliotecaMenu {
         }
         notBorrowedBookList.add(book);
         borrowedBookList.remove(book);
+        System.out.println("thanks for returning book!!");
     }
 
     public List<Book> getNotBorrowedBookList() {
