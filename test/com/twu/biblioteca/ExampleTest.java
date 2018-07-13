@@ -83,4 +83,17 @@ public class ExampleTest {
         assertEquals(systemOut(), "thanks for returning book!!\r\n");
     }
 
+    @Test
+    public void userInitTests(){
+        UserService userService = new UserService();
+        assertEquals("ctc-1234",UserService.userList.get(0).getName());
+        assertEquals("admin", UserService.adminList.get(0).getAdmin());
+    }
+     @Test
+    public void userLoginTests(){
+        UserService userService = new UserService();
+        assertTrue(userService.userLogin("ctc-1234","123"));
+        assertFalse(userService.userLogin("ctc","123"));
+     }
+
 }
