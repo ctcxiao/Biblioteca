@@ -39,6 +39,8 @@ public class BibliotecaApp {
                 break;
             case 5:
                 adminLogin();
+            case -1:
+                break;
             default:
                 System.out.println("please input a useful selection!!");
                 break;
@@ -85,9 +87,16 @@ public class BibliotecaApp {
         System.out.println("please input the book name:");
         String name = scanner.nextLine();
 
+        User user = userService.findUser(userName);
+        if (user == null){
+            return;
+        }
         Book book = bibliotecaMenu.chooseReturnBook(name);
+        if (book == null){
+            return;
+        }
         bibliotecaMenu.returnBook(book);
-        userService.findUser(userName).getBookList().remove(book);
+        user.getBookList().remove(book);
     }
 
     private void borrowBook(BibliotecaMenu bibliotecaMenu) {

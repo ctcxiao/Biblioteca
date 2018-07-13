@@ -39,10 +39,9 @@ public class UserService {
         for (User u: userList) {
             if (u.getName().equals(user)){
                 return u;
-            }UserService userService = new UserService();
+            }
         }
-
         System.out.println(user+" is not exist!!");
-        return new User();
+        return null;
     }
 }
