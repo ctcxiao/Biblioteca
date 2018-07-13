@@ -103,5 +103,9 @@ public class ExampleTest {
         assertFalse(userService.adminLogin("actc", "dsds"));
      }
 
-
+     @Test
+    public void findUserTests(){
+         UserService userService = new UserService();
+         assertEquals("ctc-1234", userService.findUser("ctc-1234").getName());
+     }
 }

@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class BibliotecaApp {
 
     private UserService userService;
+
     public static void main(String[] args) {
         new BibliotecaApp().run();
     }
@@ -50,36 +51,67 @@ public class BibliotecaApp {
         String admin = scanner.nextLine();
         System.out.println("please input your password:");
         String password = scanner.nextLine();
-        if (userService.adminLogin(admin, password)){
-            
+
+        if (userService.adminLogin(admin, password)) {
+            System.out.println("1.list user who borrowed books(press -1 to exist)");
+            dealAdminLogin(scanner);
         } else {
-            System.out.println(admin+" is not exist");
+            System.out.println(admin + " is not exist");
+        }
+    }
+
+    private void dealAdminLogin(Scanner scanner) {
+        int selection = 0;
+        while (selection != -1) {
+            selection = scanner.nextInt();
+            switch (selection) {
+                case 1:
+                    for (User u : UserService.userList) {
+                        if (u.getBookList().size() != 0) {
+                            System.out.println(u.toString());
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     private void returnBook(BibliotecaMenu bibliotecaMenu) {
-        System.out.println("please input the book name:");
         Scanner scanner = new Scanner(System.in);
+        System.out.println("please input your name:");
+        String userName = scanner.nextLine();
+        System.out.println("please input the book name:");
         String name = scanner.nextLine();
-        bibliotecaMenu.returnBook(bibliotecaMenu.chooseReturnBook(name));
+
+        Book book = bibliotecaMenu.chooseReturnBook(name);
+        bibliotecaMenu.returnBook(book);
+        userService.findUser(userName).getBookList().remove(book);
     }
 
     private void borrowBook(BibliotecaMenu bibliotecaMenu) {
-        Scanner scanner = new Scanner(System.in);
 
+        Scanner scanner = new Scanner(System.in);
         System.out.println("please input your name:");
         String userName = scanner.nextLine();
         System.out.println("please input your password:");
         String password = scanner.nextLine();
 
-        if (userService.userLogin(userName,password)){
-            System.out.println("please input the book name:");
-            String name = scanner.nextLine();
-            bibliotecaMenu.borrowBook(bibliotecaMenu.chooseBorrowBook(name));
+        if (userService.userLogin(userName, password)) {
+            dealUserLogin(bibliotecaMenu, scanner, userName);
         } else {
             System.out.println("there is no this user!!please try again!!");
         }
 
+    }
+
+    private void dealUserLogin(BibliotecaMenu bibliotecaMenu, Scanner scanner, String userName) {
+        System.out.println("please input the book name:");
+        String name = scanner.nextLine();
+        Book book = bibliotecaMenu.chooseBorrowBook(name);
+        bibliotecaMenu.borrowBook(book);
+        userService.findUser(userName).getBookList().add(book);
     }
 
     private void viewBookInfo(BibliotecaMenu bibliotecaMenu) {
@@ -90,7 +122,7 @@ public class BibliotecaApp {
     }
 
     private void printBookList(BibliotecaMenu bibliotecaMenu) {
-        for (Book book:bibliotecaMenu.getNotBorrowedBookList()) {
+        for (Book book : bibliotecaMenu.getNotBorrowedBookList()) {
             System.out.println(book.getName());
         }
     }
