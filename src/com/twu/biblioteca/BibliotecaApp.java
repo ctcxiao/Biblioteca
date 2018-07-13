@@ -4,11 +4,13 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
 
+    private UserService userService;
     public static void main(String[] args) {
         new BibliotecaApp().run();
     }
 
     private void run() {
+        userService = new UserService();
         int selection = 0;
         BibliotecaMenu bibliotecaMenu = new BibliotecaMenu();
         bibliotecaMenu.initMenu();
@@ -34,9 +36,24 @@ public class BibliotecaApp {
             case 4:
                 returnBook(bibliotecaMenu);
                 break;
+            case 5:
+                adminLogin();
             default:
                 System.out.println("please input a useful selection!!");
                 break;
+        }
+    }
+
+    private void adminLogin() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("please input your name:");
+        String admin = scanner.nextLine();
+        System.out.println("please input your password:");
+        String password = scanner.nextLine();
+        if (userService.adminLogin(admin, password)){
+            
+        } else {
+            System.out.println(admin+" is not exist");
         }
     }
 
@@ -48,10 +65,21 @@ public class BibliotecaApp {
     }
 
     private void borrowBook(BibliotecaMenu bibliotecaMenu) {
-        System.out.println("please input the book name:");
         Scanner scanner = new Scanner(System.in);
-        String name = scanner.nextLine();
-        bibliotecaMenu.borrowBook(bibliotecaMenu.chooseBorrowBook(name));
+
+        System.out.println("please input your name:");
+        String userName = scanner.nextLine();
+        System.out.println("please input your password:");
+        String password = scanner.nextLine();
+
+        if (userService.userLogin(userName,password)){
+            System.out.println("please input the book name:");
+            String name = scanner.nextLine();
+            bibliotecaMenu.borrowBook(bibliotecaMenu.chooseBorrowBook(name));
+        } else {
+            System.out.println("there is no this user!!please try again!!");
+        }
+
     }
 
     private void viewBookInfo(BibliotecaMenu bibliotecaMenu) {
@@ -80,5 +108,6 @@ public class BibliotecaApp {
         System.out.println("2.view book info");
         System.out.println("3.borrow book");
         System.out.println("4.return book");
+        System.out.println("5.admin login");
     }
 }

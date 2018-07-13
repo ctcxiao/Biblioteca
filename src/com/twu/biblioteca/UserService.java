@@ -21,8 +21,17 @@ public class UserService {
         return false;
     }
 
-    public void init() {
+    private void init() {
         userList.add(new User("ctc-1234", "15929551794", "1171332103@qq.com", "123"));
         adminList.add(new Admin("admin", "admin"));
+    }
+
+    public boolean adminLogin(String name, String password) {
+        for (Admin admin: adminList) {
+            if (admin.getAdmin().equals(name) && admin.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
     }
 }

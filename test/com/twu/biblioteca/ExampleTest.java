@@ -96,4 +96,12 @@ public class ExampleTest {
         assertFalse(userService.userLogin("ctc","123"));
      }
 
+     @Test
+    public void adminLoginTests(){
+        UserService userService = new UserService();
+        assertTrue(userService.adminLogin("admin", "admin"));
+        assertFalse(userService.adminLogin("actc", "dsds"));
+     }
+
+
 }
